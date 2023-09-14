@@ -99,6 +99,15 @@ enum
 	MSP_HCR_DATA_END             = 4,
 };
 
+/* Upload data process flags */
+enum
+{
+	MSP_DATA_SAMPLE_INIT           = 0x00,
+	MSP_DATA_SAMPLE_FIRST          = 0x01,
+	MSP_DATA_SAMPLE_CONTINUE       = 0x02,
+	MSP_DATA_SAMPLE_LAST           = 0x04,
+};
+
 /*ivw message type */
 enum
 {
@@ -111,13 +120,16 @@ enum
 	MSP_IVW_MSG_RESET        = 7
 };
 
-/* Upload data process flags */
+/*ivw message type */
 enum
 {
-	MSP_DATA_SAMPLE_INIT           = 0x00,
-	MSP_DATA_SAMPLE_FIRST          = 0x01,
-	MSP_DATA_SAMPLE_CONTINUE       = 0x02,
-	MSP_DATA_SAMPLE_LAST           = 0x04,
+	MSP_IVW_MSG_WAKEUP1       = 1,
+	MSP_IVW_MSG_ERROR1        = 2,
+	MSP_IVW_MSG_ISR_RESULT1   = 3,
+	MSP_IVW_MSG_ISR_EPS1      = 4,
+	MSP_IVW_MSG_VOLUME1       = 5,
+	MSP_IVW_MSG_ENROLL1       = 6,
+	MSP_IVW_MSG_RESET1        = 7
 };
 
 #endif /* __MSP_TYPES_H__ */
