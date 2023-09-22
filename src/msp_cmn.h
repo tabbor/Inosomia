@@ -113,22 +113,6 @@ typedef int (MSPAPI *Proc_MSPLogoutW)();
 int MSPAPI MSPUpload( const char* dataName, const char* params, const char* dataID);
 typedef int (MSPAPI* Proc_MSPUpload)( const char* dataName, const char* params, const char* dataID);
 
-/** 
- * @fn		MSPDownload
- * @brief	Download User Specific Data
- * 
- *  Download data such as user config, etc.
- * 
- * @return	int MSPAPI				- Return 0 in success, otherwise return error code.
- * @param	const char* params		- [in] parameters about data to be downloaded.
- * @see		
- */
-typedef int (*DownloadStatusCB)(int errorCode, long param1, const void *param2, void *userData);
-typedef int (*DownloadResultCB)(const void *data, long dataLen, void *userData);
-int MSPAPI MSPDownload(const char* dataName, const char* params, DownloadStatusCB statusCb, DownloadResultCB resultCb, void*userData);
-typedef int (MSPAPI* Proc_MSPDownload)(const char* dataName, const char* params, DownloadStatusCB statusCb, DownloadResultCB resultCb, void*userData);
-int MSPAPI MSPDownloadW(const wchar_t* wdataName, const wchar_t* wparams, DownloadStatusCB statusCb, DownloadResultCB resultCb, void*userData);
-typedef int (MSPAPI* Proc_MSPDownloadW) (const wchar_t* wdataName, const wchar_t* wparams, DownloadStatusCB statusCb, DownloadResultCB resultCb, void*userData);
 
 /** 
  * @fn		MSPAppendData
@@ -190,6 +174,24 @@ int MSPAPI MSPGetParam( const char *paramName, char *paramValue, unsigned int *v
 typedef int (MSPAPI *Proc_MSPGetParam)( const char *paramName, char *paramValue, unsigned int *valueLen );
 
 /** 
+ * @fn		MSPDownload
+ * @brief	Download User Specific Data
+ * 
+ *  Download data such as user config, etc.
+ * 
+ * @return	int MSPAPI				- Return 0 in success, otherwise return error code.
+ * @param	const char* params		- [in] parameters about data to be downloaded.
+ * @see		
+ */
+typedef int (*DownloadStatusCB)(int errorCode, long param1, const void *param2, void *userData);
+typedef int (*DownloadResultCB)(const void *data, long dataLen, void *userData);
+int MSPAPI MSPDownload(const char* dataName, const char* params, DownloadStatusCB statusCb, DownloadResultCB resultCb, void*userData);
+typedef int (MSPAPI* Proc_MSPDownload)(const char* dataName, const char* params, DownloadStatusCB statusCb, DownloadResultCB resultCb, void*userData);
+int MSPAPI MSPDownloadW(const wchar_t* wdataName, const wchar_t* wparams, DownloadStatusCB statusCb, DownloadResultCB resultCb, void*userData);
+typedef int (MSPAPI* Proc_MSPDownloadW) (const wchar_t* wdataName, const wchar_t* wparams, DownloadStatusCB statusCb, DownloadResultCB resultCb, void*userData);
+
+
+/** 
  * @fn		MSPUploadData
  * @brief	Upload User Specific Data
  * 
@@ -205,6 +207,23 @@ typedef int (MSPAPI *Proc_MSPGetParam)( const char *paramName, char *paramValue,
  */
 const char* MSPAPI MSPUploadData(const char* dataName, void* data, unsigned int dataLen, const char* params, int* errorCode);
 typedef const char* (MSPAPI* Proc_MSPUploadData)(const char* dataName, void* data, unsigned int dataLen, const char* params, int* errorCode);
+
+
+/** 
+ * @fn		MSPRegisterNotify
+ * @brief	Register a Callback
+ * 
+ *  Register a Callback
+ * 
+ * @return	int                     -
+ * @param	msp_status_ntf_handler statusCb		- [in] notify handler
+ * @param	void *userData                   	- [in] userData
+ * @see		
+ */
+typedef void ( *msp_status_ntf_handler)( int type, int status, int param1, const void *param2, void *userData );
+int MSPAPI MSPRegisterNotify( msp_status_ntf_handler statusCb, void *userData );
+typedef const char* (MSPAPI* Proc_MSPRegisterNotify)( msp_status_ntf_handler statusCb, void *userData );
+
 
 /** 
  * @fn		MSPDownloadData
@@ -245,21 +264,6 @@ typedef int (*NLPSearchCB)(const char *sessionID, int errorCode, int status, con
 const char* MSPAPI MSPNlpSearch(const char* params, const char* text, unsigned int textLen, int *errorCode, NLPSearchCB callback, void *userData);
 typedef const char* (MSPAPI* Proc_MSPNlpSearch)(const char* params, const char* text, unsigned int textLen, int *errorCode, NLPSearchCB callback, void *userData);
 int MSPAPI MSPNlpSchCancel(const char *sessionID, const char *hints);
-
-/** 
- * @fn		MSPRegisterNotify
- * @brief	Register a Callback
- * 
- *  Register a Callback
- * 
- * @return	int                     -
- * @param	msp_status_ntf_handler statusCb		- [in] notify handler
- * @param	void *userData                   	- [in] userData
- * @see		
- */
-typedef void ( *msp_status_ntf_handler)( int type, int status, int param1, const void *param2, void *userData );
-int MSPAPI MSPRegisterNotify( msp_status_ntf_handler statusCb, void *userData );
-typedef const char* (MSPAPI* Proc_MSPRegisterNotify)( msp_status_ntf_handler statusCb, void *userData );
 
 /**
  * @fn		MSPGetVersion
